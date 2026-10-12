@@ -1,76 +1,547 @@
 <!doctype html>
-<html lang="fr"><head>
+<html lang="fr">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GOALION — le jeu de foot pronos & cartes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GOALION — Prédis. Collectionne. Domine.</title>
+<meta name="description" content="GOALION, le jeu de foot sur iPhone : pronostique les vrais matchs, ouvre des packs, aligne ton onze et grimpe jusqu'à Légende. Monnaie virtuelle uniquement.">
+<meta name="theme-color" content="#0A0A0C">
+<meta property="og:title" content="GOALION — Prédis. Collectionne. Domine.">
+<meta property="og:description" content="Les vrais matchs, tes cartes, ton onze. Jusqu'où iras-tu ?">
+<meta property="og:image" content="https://goalion.fr/icon.png">
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="Pronostique les vrais matchs, gagne des cartes de joueurs, grimpe les ligues. Assistance et contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0A0A0C;--surface:#161618;--line:rgba(255,255,255,.08);--text:#F2F2F4;--text2:#A6A6B0;--accent:#C6F24E;--accentText:#14180A}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-a{color:var(--accent)}
-.wrap{max-width:720px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:900;letter-spacing:.18em;color:var(--text);text-decoration:none;font-size:18px}
-.brand span{color:var(--accent)}
-nav a{color:var(--text2);text-decoration:none;font-size:14px;margin-left:18px}
-nav a:hover{color:var(--text)}
-main{padding:48px 0 80px}
-h1{font-size:34px;line-height:1.15;margin:0 0 10px;letter-spacing:-.01em}
-h2{font-size:19px;margin:36px 0 8px}
-p,li{color:var(--text2)} strong{color:var(--text)}
-ul{padding-left:22px} li{margin:6px 0}
-.hero{text-align:center;padding:40px 0 16px}
-.hero h1{font-size:44px}
-.hero .icon{border-radius:24px;box-shadow:0 0 60px rgba(198,242,78,.35);margin-bottom:22px}
-.hero .glow{display:inline-block;width:88px;height:88px;border-radius:24px;background:radial-gradient(circle at 30% 30%,#E9FF3D,#C6F24E 45%,#3a4a10);box-shadow:0 0 60px rgba(198,242,78,.35);margin-bottom:22px}
-.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--accentText);background:var(--accent);padding:5px 12px;border-radius:999px;margin-bottom:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;margin:18px 0}
-.card h2{margin-top:0}
-.btn{display:inline-block;background:var(--accent);color:var(--accentText);font-weight:800;text-decoration:none;padding:12px 20px;border-radius:14px;margin-top:6px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.grid .card{margin:0}
-footer{border-top:1px solid var(--line);color:var(--text2);font-size:13px;padding:24px 0 40px}
-footer a{color:var(--text2)}
+/* ==========================================================================
+   GOALION — page produit
+   Deux règles :
+   1. On ne montre QUE de vrais écrans et de vraies images du jeu (captures,
+      packs, emblèmes de rang, pièces). Aucune interface recréée.
+   2. Peu de texte : une accroche par bloc. Le joueur découvre le reste en jouant.
+   Tout le style est rangé sous .gl pour pouvoir coller la page dans un autre
+   site sans casser le sien. Couleurs = celles de l'app (fond 0A0A0C, accent C6F24E).
+   ========================================================================== */
+:root{color-scheme:dark}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#0A0A0C}
+
+.gl{
+  --bg:#0A0A0C; --surface:#161618; --surface2:#1E1E22;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --text:#F2F2F4; --text2:#A6A6B0; --text3:#6E6E78;
+  --accent:#C6F24E; --accentText:#14180A; --live:#FF5A5A;
+  --display:"Anton",Impact,"Arial Narrow Bold",sans-serif;
+  --body:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg); color:var(--text);
+  font:17px/1.6 var(--body);
+  overflow-x:clip; position:relative;
+}
+.gl *,.gl *::before,.gl *::after{box-sizing:border-box}
+.gl img{display:block;max-width:100%}
+.gl a{color:var(--accent)}
+.gl h1,.gl h2,.gl h3{margin:0;font-weight:400}
+.gl p{margin:0}
+.gl .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.gl .eyebrow{display:inline-flex;align-items:center;gap:8px;font:800 12px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.gl .eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);border-radius:2px}
+.gl .h2{font:400 clamp(44px,7vw,92px)/.95 var(--display);text-transform:uppercase;margin:14px 0 18px}
+.gl .h2 em{font-style:normal;color:var(--accent)}
+.gl .lead{color:var(--text2);font-size:clamp(17px,1.7vw,21px);max-width:460px}
+.gl .lead strong{color:var(--text)}
+
+/* ---------- Bouton App Store ---------- */
+.gl .store{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--accentText);text-decoration:none;
+  padding:13px 22px 13px 16px;border-radius:16px;font:800 15px/1.1 var(--body);box-shadow:0 10px 40px -10px rgba(198,242,78,.6);
+  transition:transform .25s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;position:relative;overflow:hidden}
+.gl .store:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 50px -10px rgba(198,242,78,.8)}
+.gl .store small{display:block;font:700 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+.gl .store svg{width:26px;height:26px;flex:none}
+.gl .store::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:gl-shine 3.6s ease-in-out infinite 1.2s}
+@keyframes gl-shine{0%,60%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+
+/* ---------- Nav ---------- */
+.gl .nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.gl .nav.solid{background:rgba(10,10,12,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-color:var(--line)}
+.gl .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.gl .nav .logo img{height:40px;width:auto}
+.gl .nav .links{display:flex;align-items:center;gap:26px}
+.gl .nav .links a{color:var(--text2);text-decoration:none;font-weight:600;font-size:15px;transition:color .2s}
+.gl .nav .links a:hover{color:var(--text)}
+.gl .nav .links .pill{color:var(--accentText);background:var(--accent);padding:9px 16px;border-radius:999px;font-weight:800}
+@media (max-width:820px){.gl .nav .links a:not(.pill){display:none}.gl .nav .logo img{height:34px}}
+
+/* ---------- Téléphone : la capture EST l'écran (son encoche et sa barre d'état
+   font le haut du téléphone) ; le contour n'est qu'un fin liseré par-dessus ---------- */
+.gl .phone{position:relative;aspect-ratio:600/1304;border-radius:13.5%/6.2%;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.3),0 40px 80px -24px rgba(0,0,0,.95)}
+.gl .phone img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+
+/* ---------- Hero ---------- */
+.gl .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:110px 0 60px;isolation:isolate}
+.gl .glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(90px);pointer-events:none}
+.gl .hero .glow.a{width:620px;height:620px;background:radial-gradient(circle,#C6F24E 0%,transparent 65%);right:-120px;top:8%;opacity:.5;animation:gl-breathe 8s ease-in-out infinite}
+.gl .hero .glow.b{width:520px;height:520px;background:radial-gradient(circle,#3D8BFF 0%,transparent 65%);left:-220px;bottom:-120px;opacity:.22;animation:gl-breathe 10s ease-in-out infinite reverse}
+@keyframes gl-breathe{50%{transform:scale(1.15) translate(-20px,10px)}}
+.gl .hero .lines{position:absolute;inset:0;z-index:-1;width:100%;height:100%;opacity:.14}
+.gl .hero .lines *{fill:none;stroke:#C6F24E;stroke-width:1.4;stroke-dasharray:2400;stroke-dashoffset:2400;animation:gl-draw 3.2s cubic-bezier(.6,0,.2,1) forwards .2s}
+@keyframes gl-draw{to{stroke-dashoffset:0}}
+.gl .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.gl .hero .grid>*{min-width:0}
+.gl .hero h1{font:400 clamp(54px,7.8vw,124px)/.88 var(--display);text-transform:uppercase;margin:20px 0 26px}
+.gl .hero h1 .ln{display:block;overflow:hidden;padding:.12em 0 .04em;margin-top:-.12em}
+.gl .hero h1 .ln span{display:block;transform:translateY(105%);animation:gl-up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.gl .hero h1 .ln:nth-child(2) span{animation-delay:.12s}
+.gl .hero h1 .ln:nth-child(3) span{animation-delay:.24s}
+@keyframes gl-up{to{transform:none}}
+.gl .shimmer{background:linear-gradient(100deg,#C6F24E 0%,#C6F24E 40%,#F6FFC9 50%,#C6F24E 60%,#C6F24E 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gl-sheen 4s linear infinite}
+@keyframes gl-sheen{from{background-position:120% 0}to{background-position:-130% 0}}
+.gl .hero .lead{animation:gl-fade 1s ease .5s both}
+.gl .hero .ctas{margin-top:30px;animation:gl-fade 1s ease .7s both}
+@keyframes gl-fade{from{opacity:0;transform:translateY(16px)}}
+.gl .stage{position:relative;height:min(720px,82svh);perspective:1400px}
+.gl .stage .tilt{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);animation:gl-enter 1.2s cubic-bezier(.2,.8,.2,1) both .3s}
+@keyframes gl-enter{from{opacity:0;transform:translateY(60px) rotateX(12deg)}}
+.gl .stage .phone{position:absolute;width:min(300px,42%);top:50%;left:50%}
+.gl .stage .p1{z-index:3;animation:gl-float 6s ease-in-out infinite}
+.gl .stage .p2{z-index:2;filter:brightness(.6);animation:gl-float2 7s ease-in-out infinite}
+.gl .stage .p3{z-index:2;filter:brightness(.6);animation:gl-float3 7.5s ease-in-out infinite}
+@keyframes gl-float{0%,100%{transform:translate(-50%,-50%) translateZ(60px)}50%{transform:translate(-50%,-53%) translateZ(60px)}}
+@keyframes gl-float2{0%,100%{transform:translate(-118%,-44%) rotate(-9deg) scale(.86)}50%{transform:translate(-118%,-47%) rotate(-7deg) scale(.86)}}
+@keyframes gl-float3{0%,100%{transform:translate(18%,-44%) rotate(9deg) scale(.86)}50%{transform:translate(18%,-41%) rotate(7deg) scale(.86)}}
+.gl .floaty{position:absolute;z-index:4;pointer-events:none;filter:drop-shadow(0 14px 24px rgba(0,0,0,.6))}
+.gl .floaty.c1{width:74px;left:6%;top:12%;animation:gl-bob 5s ease-in-out infinite}
+.gl .floaty.c2{width:52px;right:4%;bottom:16%;animation:gl-bob 6s ease-in-out infinite .8s}
+.gl .floaty.g1{width:56px;right:10%;top:6%;animation:gl-bob 5.5s ease-in-out infinite .4s}
+.gl .floaty.g2{width:40px;left:12%;bottom:10%;animation:gl-bob 7s ease-in-out infinite 1.2s}
+@keyframes gl-bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-22px) rotate(8deg)}}
+.gl .scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:26px;height:42px;border-radius:14px;border:2px solid var(--line2);animation:gl-fade 1s ease 1.6s both}
+.gl .scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--accent);animation:gl-wheel 1.8s ease-in-out infinite}
+@keyframes gl-wheel{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@media (max-width:900px){
+  .gl .hero{padding:96px 0 20px}
+  .gl .hero .grid{grid-template-columns:1fr;text-align:center}
+  .gl .hero .lead{margin:0 auto}
+  .gl .stage{height:470px;margin-top:10px}
+  .gl .stage .phone{width:min(240px,46%)}
+  .gl .scroll-hint{display:none}
+}
+
+/* ---------- Bandeau compétitions ---------- */
+.gl .marquee{position:relative;background:var(--accent);color:var(--accentText);transform:rotate(-2deg);margin:40px -20px;padding:16px 0;overflow:hidden;box-shadow:0 20px 60px -20px rgba(198,242,78,.5)}
+.gl .marquee .track{display:flex;width:max-content;animation:gl-marq 32s linear infinite}
+.gl .marquee span{font:400 clamp(26px,3.4vw,40px)/1 var(--display);text-transform:uppercase;padding:0 26px;white-space:nowrap;display:flex;align-items:center;gap:52px}
+.gl .marquee span::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--accentText)}
+@keyframes gl-marq{to{transform:translateX(-50%)}}
+
+/* ---------- Blocs : une accroche + de vrais écrans ---------- */
+.gl section.block{padding:clamp(70px,10vw,130px) 0;position:relative}
+.gl .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+.gl .split>*{min-width:0}
+.gl .split.rev .txt{order:2}
+@media (max-width:900px){.gl .split{grid-template-columns:1fr;text-align:center}.gl .split.rev .txt{order:0}.gl .split .lead{margin:0 auto}}
+
+.gl .shots{position:relative;display:flex;justify-content:center;align-items:center;padding:20px 0;isolation:isolate}
+.gl .shots .glow{width:80%;aspect-ratio:1;left:10%;top:10%;opacity:.35}
+.gl .shots .phone{width:min(300px,62%);transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s}
+.gl .shots.duo .phone{width:min(270px,48%)}
+.gl .shots.duo .phone:first-of-type{transform:rotate(-4deg) translateY(18px);margin-right:-7%;z-index:1;filter:brightness(.72)}
+.gl .shots.duo .phone:last-of-type{transform:rotate(3deg);z-index:2}
+.gl .shots.duo:hover .phone:first-of-type{transform:rotate(-6deg) translate(-14px,10px);filter:brightness(.9)}
+.gl .shots.duo:hover .phone:last-of-type{transform:rotate(4deg) translate(10px,-8px)}
+.gl .floatme{animation:gl-float-soft 7s ease-in-out infinite}
+@keyframes gl-float-soft{50%{translate:0 -12px}}
+
+/* Apparition au scroll */
+.gl [data-reveal]{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.gl [data-reveal="left"]{transform:translateX(-50px)}
+.gl [data-reveal="right"]{transform:translateX(50px)}
+.gl [data-reveal="zoom"]{transform:scale(.9)}
+.gl [data-reveal].in{opacity:1;transform:none}
+.gl [data-delay="1"]{transition-delay:.1s}.gl [data-delay="2"]{transition-delay:.2s}.gl [data-delay="3"]{transition-delay:.3s}.gl [data-delay="4"]{transition-delay:.4s}.gl [data-delay="5"]{transition-delay:.5s}
+
+/* ---------- Packs (vraies images du jeu) ---------- */
+.gl .packs{background:radial-gradient(ellipse at 50% 0%,#1b1f10 0%,var(--bg) 60%)}
+.gl .center{text-align:center}
+.gl .center .lead{margin:0 auto}
+.gl .pack-row{display:flex;align-items:flex-end;gap:clamp(6px,1.4vw,14px);margin-top:34px;max-width:460px}
+@media (max-width:900px){.gl .pack-row{margin:30px auto 0}}
+.gl .pack-row figure{margin:0;flex:1;max-width:70px}
+.gl .pack-row .pk{transition:transform .4s cubic-bezier(.2,.9,.3,1.4)}
+.gl .pack-row .pk img{width:100%;filter:drop-shadow(0 18px 30px rgba(0,0,0,.7))}
+.gl .pack-row figure:nth-child(odd) .pk{animation:gl-bob3 5s ease-in-out infinite}
+.gl .pack-row figure:nth-child(even) .pk{animation:gl-bob3 5.6s ease-in-out infinite .6s}
+@keyframes gl-bob3{50%{translate:0 -12px}}
+.gl .pack-row figure:hover .pk{transform:translateY(-14px) scale(1.08) rotate(-2deg)}
+.gl .pack-row figcaption{margin-top:14px;font:800 clamp(9px,1.1vw,12px)/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase}
+
+/* ---------- Échelle de ligue (vrais emblèmes) ---------- */
+.gl .ladder{position:relative;margin-top:50px}
+.gl .ladder .rail{position:absolute;left:4%;right:4%;top:58px;height:4px;border-radius:2px;background:var(--surface2)}
+.gl .ladder .rail i{position:absolute;inset:0 auto 0 0;width:0;border-radius:2px;background:linear-gradient(90deg,#9AA6B2,#6FCF97,#3D8BFF,#F4C53B,#FF5A5A,#8B6BFF,#E8B341,#FFD23F,#C6F24E);box-shadow:0 0 18px rgba(198,242,78,.5)}
+.gl .ranks{position:relative;display:grid;grid-template-columns:repeat(9,1fr);gap:6px}
+.gl .rk{text-align:center;opacity:.25;filter:grayscale(1);transition:opacity .5s,filter .5s,transform .5s cubic-bezier(.2,.9,.3,1.5)}
+.gl .rk.on{opacity:1;filter:none}
+.gl .rk.cur{transform:scale(1.18)}
+.gl .rk img{position:relative;width:100%;max-width:120px;margin:0 auto;background:radial-gradient(circle,#0c0d11 46%,transparent 47%);-webkit-mask:radial-gradient(circle,#000 52%,transparent 71%);mask:radial-gradient(circle,#000 52%,transparent 71%)}
+.gl .rk b{display:block;font:400 clamp(11px,1.3vw,16px)/1.1 var(--display);text-transform:uppercase;margin-top:6px}
+/* Mobile : les 9 rangs tiennent sur l'écran, en deux lignes (5 + 4), sans défilement de côté */
+@media (max-width:760px){
+  .gl .ladder .rail{display:none}
+  .gl .ranks{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 4px}
+  .gl .rk{flex:0 0 calc(20% - 4px)}
+  .gl .rk b{font-size:10px;letter-spacing:0}
+  .gl .rk.cur{transform:scale(1.12)}
+}
+
+/* ---------- Argent réel ---------- */
+.gl .nomoney{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;text-align:center;padding:22px 26px;border-radius:22px;background:var(--surface);border:1px solid var(--line2);color:var(--text2);font-size:15px}
+.gl .nomoney img{width:34px;height:34px}
+.gl .nomoney b{color:var(--text)}
+
+/* ---------- Assistance ---------- */
+.gl .help{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,70px);align-items:start}
+.gl .help>*{min-width:0}
+@media (max-width:900px){.gl .help{grid-template-columns:1fr}}
+.gl .faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.gl .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font:800 16px/1.35 var(--body)}
+.gl .faq summary::-webkit-details-marker{display:none}
+.gl .faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);color:var(--accent);font:600 20px/1 var(--body);transition:transform .3s}
+.gl .faq details[open] summary::after{transform:rotate(45deg)}
+.gl .faq details p{color:var(--text2);padding:0 0 16px;font-size:15px;animation:gl-fade .4s ease}
+.gl .mail{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:14px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line2);color:var(--text);text-decoration:none;font-weight:800;transition:border-color .2s,transform .2s}
+.gl .mail:hover{border-color:var(--accent);transform:translateY(-2px)}
+.gl .mail span{color:var(--accent)}
+
+/* ---------- Final + footer ---------- */
+.gl .final{text-align:center;padding:clamp(90px,14vw,170px) 0;position:relative;overflow:hidden;isolation:isolate}
+.gl .final .mark{width:120px;margin:0 auto 26px;filter:drop-shadow(0 0 40px rgba(198,242,78,.5));animation:gl-bob2 4s ease-in-out infinite}
+@keyframes gl-bob2{50%{transform:translateY(-10px)}}
+.gl .final .h2{font-size:clamp(48px,9vw,120px)}
+.gl .final .glow{left:50%;top:50%;width:700px;height:700px;translate:-50% -50%;background:radial-gradient(circle,rgba(198,242,78,.22),transparent 60%);animation:gl-breathe 8s ease-in-out infinite}
+.gl footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--text3);font-size:14px}
+.gl footer .wrap{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:space-between}
+.gl footer img{height:30px;width:auto;opacity:.85}
+.gl footer a{color:var(--text2);text-decoration:none}
+.gl footer a:hover{color:var(--text)}
+.gl footer nav{display:flex;flex-wrap:wrap;gap:20px}
+
+/* ---------- Places de la bêta (compteur partagé, cf. supabase/sql/08_beta_counter.sql) ---------- */
+.gl .seats{display:flex;align-items:center;gap:12px;margin-top:16px;font:700 13px/1.2 "Hanken Grotesk",sans-serif;color:var(--text2)}
+.gl .seats .bar{width:140px;height:6px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
+.gl .seats .bar i{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.gl .seats b{color:var(--text);font-weight:800}
+.gl .seats.bump b{animation:gl-seat .6s cubic-bezier(.2,.9,.3,1.6)}
+@keyframes gl-seat{40%{color:var(--accent);transform:scale(1.4)}}
+.gl .seats b{display:inline-block}
+@media (max-width:900px){.gl .seats{justify-content:center}}
+
+/* Mouvement réduit : tout reste visible, sans animation */
+@media (prefers-reduced-motion:reduce){
+  .gl *,.gl *::before,.gl *::after{animation:none!important;transition:none!important}
+  .gl [data-reveal]{opacity:1!important;transform:none!important}
+  .gl .hero h1 .ln span{transform:none}
+  .gl .hero .lines *{stroke-dashoffset:0}
+  .gl .stage .p1{transform:translate(-50%,-50%)}
+  .gl .stage .p2{transform:translate(-118%,-44%) rotate(-9deg) scale(.86)}
+  .gl .stage .p3{transform:translate(18%,-44%) rotate(9deg) scale(.86)}
+}
 </style>
-</head><body>
-<header><div class="wrap">
-  <a class="brand" href="./">GOAL<span>ION</span></a>
-  <nav><a href="./#assistance">Assistance</a><a href="confidentialite.html">Confidentialité</a></nav>
-</div></header>
-<main><div class="wrap">
+</head>
+<body>
+<div class="gl" id="top">
+
+<header class="nav" id="gl-nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="GOALION, accueil"><img src="img/logo_full.webp" alt="GOALION" width="420" height="253"></a>
+    <nav class="links">
+      <a href="#pronos">Le jeu</a>
+      <a href="#ligue">Ligue</a>
+      <a href="#assistance">Assistance</a>
+      <a class="pill" href="https://testflight.apple.com/join/R4vCScw7">Télécharger la bêta</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
 <section class="hero">
-  <img class="icon" src="icon.png" alt="Icône GOALION" width="104" height="104"><br>
-  <span class="tag">BIENTÔT SUR L'APP STORE</span>
-  <h1>Prédis. Collectionne.<br>Grimpe les ligues.</h1>
-  <p>GOALION est un jeu de foot sur iPhone : tu pronostiques les vrais matchs, tes bons pronos te font gagner des cartes de joueurs, et tu montes la meilleure équipe pour grimper de l'Espoir jusqu'à la Légende.</p>
+  <div class="glow a"></div><div class="glow b"></div>
+  <svg class="lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect x="60" y="60" width="1320" height="780" rx="6"/>
+    <path d="M720 60 V840"/>
+    <circle cx="720" cy="450" r="130"/>
+    <rect x="60" y="250" width="200" height="400"/>
+    <rect x="1180" y="250" width="200" height="400"/>
+    <path d="M260 360 a110 110 0 0 1 0 180 M1180 360 a110 110 0 0 0 0 180"/>
+  </svg>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">Le jeu de foot sur iPhone</span>
+        <h1>
+          <span class="ln"><span>Prédis.</span></span>
+          <span class="ln"><span>Collectionne.</span></span>
+          <span class="ln"><span class="shimmer">Domine.</span></span>
+        </h1>
+        <p class="lead">Les vrais matchs, tes cartes, ton onze. <strong>Jusqu'où iras-tu ?</strong></p>
+        <div class="ctas">
+          <a class="store" href="https://testflight.apple.com/join/R4vCScw7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+            <span><small>Bêta gratuite · TestFlight</small>Télécharger la bêta</span>
+          </a>
+        </div>
+        <div class="seats" aria-live="polite"><div class="bar"><i style="width:2.7%"></i></div><span><b class="n">27</b> / 1 000 places dans la bêta</span></div>
+      </div>
+      <div class="stage" id="gl-stage">
+        <div class="tilt" id="gl-tilt">
+          <div class="phone p2"><img src="img/shot_team.webp" alt="Ton onze sur le terrain" width="600" height="1304"></div>
+          <div class="phone p3"><img src="img/shot_pronos.webp" alt="Les matchs à pronostiquer" width="600" height="1304"></div>
+          <div class="phone p1"><img src="img/shot_match.webp" alt="Un match de ligue en direct" width="600" height="1304"></div>
+        </div>
+        <img class="floaty c1" src="img/coin_golz.webp" alt="">
+        <img class="floaty g1" src="img/gem_golz.webp" alt="">
+        <img class="floaty c2" src="img/coin_golz.webp" alt="">
+        <img class="floaty g2" src="img/gem_golz.webp" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
 </section>
 
-<div class="grid">
-  <div class="card"><h2>⚽ Pronos</h2><p>Les vrais matchs des grands championnats européens, avec leurs cotes.</p></div>
-  <div class="card"><h2>🃏 Cartes</h2><p>Ouvre des packs, collectionne les joueurs et fais-les monter en niveau.</p></div>
-  <div class="card"><h2>🏆 Ligues</h2><p>Des matchs à la demande, 3 paliers par rang, 9 rangs jusqu'à Légende.</p></div>
+<div class="marquee" aria-label="Ligue 1, Premier League, Liga, Serie A, Bundesliga, Ligue des champions">
+  <div class="track" aria-hidden="true">
+    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span>
+    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span>
+  </div>
 </div>
 
-<div class="card">
-  <h2>Monnaie virtuelle uniquement</h2>
-  <p>GOALION contient des paris <strong>simulés</strong> avec une monnaie virtuelle. Aucune mise en argent réel, aucun gain en argent réel, aucun retrait possible.</p>
+<!-- 01 PRONOS -->
+<section class="block" id="pronos">
+  <div class="wrap split">
+    <div class="txt" data-reveal="left">
+      <span class="eyebrow">01 · Pronos</span>
+      <h2 class="h2">Les vrais matchs.<br><em>Les vraies cotes.</em></h2>
+      <p class="lead">Mise sur les matchs du week-end. Le bon prono rapporte gros.</p>
+    </div>
+    <div class="shots duo" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#C6F24E,transparent 65%)"></div>
+      <div class="phone"><img src="img/shot_pronos.webp" alt="Un match à parier avec ses cotes" loading="lazy" width="600" height="1304"></div>
+      <div class="phone"><img src="img/shot_paris.webp" alt="Tes paris en cours" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 PACKS -->
+<section class="block packs" id="packs">
+  <div class="wrap split">
+    <div class="txt" data-reveal="left">
+      <span class="eyebrow">02 · Packs</span>
+      <h2 class="h2">De Basique<br>à <em>Mythique</em></h2>
+      <p class="lead">Six raretés. Tape le maillot… qu'est-ce qui va tomber ?</p>
+      <div class="pack-row">
+        <figure><div class="pk"><img src="img/pack_basique.webp" alt="Pack Basique" loading="lazy"></div></figure>
+        <figure><div class="pk"><img src="img/pack_rare.webp" alt="Pack Rare" loading="lazy"></div></figure>
+        <figure><div class="pk"><img src="img/pack_epique.webp" alt="Pack Épique" loading="lazy"></div></figure>
+        <figure><div class="pk"><img src="img/pack_ultime.webp" alt="Pack Ultime" loading="lazy"></div></figure>
+        <figure><div class="pk"><img src="img/pack_divin.webp" alt="Pack Divin" loading="lazy"></div></figure>
+        <figure><div class="pk"><img src="img/pack_mythique.webp" alt="Pack Mythique" loading="lazy"></div></figure>
+      </div>
+    </div>
+    <div class="shots duo" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#F4C53B,transparent 65%)"></div>
+      <div class="phone"><img src="img/shot_pack_chance.webp" alt="L'ouverture d'un pack : tape le maillot" loading="lazy" width="600" height="1304"></div>
+      <div class="phone"><img src="img/shot_pack_reveal.webp" alt="La carte révélée" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ONZE -->
+<section class="block" id="equipe">
+  <div class="wrap split rev">
+    <div class="txt" data-reveal="right">
+      <span class="eyebrow">03 · Ton onze</span>
+      <h2 class="h2">Ton onze.<br><em>Tes règles.</em></h2>
+      <p class="lead">Compose l'équipe de tes rêves et fais-la grandir match après match.</p>
+    </div>
+    <div class="shots" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#2f8a3a,transparent 65%)"></div>
+      <div class="phone floatme"><img src="img/shot_collection.webp" alt="Ton onze et ta collection de cartes" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 LIGUE -->
+<section class="block" id="ligue" style="background:linear-gradient(180deg,var(--bg),#0d0f14 40%,var(--bg))">
+  <div class="wrap">
+    <div class="center" data-reveal>
+      <span class="eyebrow">04 · Ligue</span>
+      <h2 class="h2">D'Espoir<br>à <em>Légende</em></h2>
+      <p class="lead">Neuf rangs. Jusqu'où iras-tu ?</p>
+    </div>
+    <div class="ladder" id="gl-ladder">
+      <div class="rail"><i id="gl-rail"></i></div>
+      <div class="ranks">
+        <div class="rk"><img src="img/rank_espoir.webp" alt="" loading="lazy"><b>Espoir</b></div>
+        <div class="rk"><img src="img/rank_amateur.webp" alt="" loading="lazy"><b>Amateur</b></div>
+        <div class="rk"><img src="img/rank_semipro.webp" alt="" loading="lazy"><b>Semi-Pro</b></div>
+        <div class="rk"><img src="img/rank_pro.webp" alt="" loading="lazy"><b>Pro</b></div>
+        <div class="rk"><img src="img/rank_international.webp" alt="" loading="lazy"><b>International</b></div>
+        <div class="rk"><img src="img/rank_elite.webp" alt="" loading="lazy"><b>Élite</b></div>
+        <div class="rk"><img src="img/rank_icone.webp" alt="" loading="lazy"><b>Icône</b></div>
+        <div class="rk"><img src="img/rank_ballondor.webp" alt="" loading="lazy"><b>Ballon d'Or</b></div>
+        <div class="rk"><img src="img/rank_legende.webp" alt="" loading="lazy"><b>Légende</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 LE MATCH -->
+<section class="block" id="match">
+  <div class="wrap split">
+    <div class="txt" data-reveal="left">
+      <span class="eyebrow">05 · Le match</span>
+      <h2 class="h2">Vis chaque<br><em>match.</em></h2>
+      <p class="lead">Ton équipe joue sous tes yeux, but après but.</p>
+    </div>
+    <div class="shots duo" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#E8B341,transparent 65%)"></div>
+      <div class="phone"><img src="img/shot_match.webp" alt="Un match en direct" loading="lazy" width="600" height="1304"></div>
+      <div class="phone"><img src="img/shot_feuille.webp" alt="La feuille de match" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 CHAQUE JOUR -->
+<section class="block" id="chaque-jour" style="padding-top:0">
+  <div class="wrap split rev">
+    <div class="txt" data-reveal="right">
+      <span class="eyebrow">06 · Chaque jour</span>
+      <h2 class="h2">Chaque jour<br><em>compte.</em></h2>
+      <p class="lead">Un cadeau qui t'attend, une série à garder en vie.</p>
+    </div>
+    <div class="shots" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#8B6BFF,transparent 65%)"></div>
+      <div class="phone floatme"><img src="img/shot_boutique.webp" alt="La Boutique : cadeau du jour et pack" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARGENT RÉEL -->
+<section class="block" style="padding:0 0 20px">
+  <div class="wrap">
+    <p class="nomoney" data-reveal><img src="img/coin_golz.webp" alt=""><span><b>Zéro argent réel.</b> Tout se joue avec une monnaie virtuelle.</span></p>
+  </div>
+</section>
+
+<!-- ASSISTANCE -->
+<section class="block" id="assistance">
+  <div class="wrap help">
+    <div data-reveal="left">
+      <span class="eyebrow">Assistance</span>
+      <h2 class="h2">Une question&nbsp;?</h2>
+      <a class="mail" href="mailto:contact@goalion.fr">✉ <span>contact@goalion.fr</span></a>
+    </div>
+    <div class="faq" data-reveal="right">
+      <details><summary>J'ai oublié mon mot de passe.</summary><p>Sur l'écran de connexion, touche « Mot de passe oublié ? » et suis le lien reçu par email.</p></details>
+      <details><summary>Comment supprimer mon compte ?</summary><p>Profil → Réglages → Supprimer mon compte. Tout est effacé définitivement.</p></details>
+      <details><summary>Est-ce que je peux gagner de l'argent ?</summary><p>Non. Tout se joue avec une monnaie virtuelle, sans aucune valeur réelle.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="telecharger">
+  <div class="glow"></div>
+  <div class="wrap" data-reveal="zoom">
+    <img class="mark" src="img/logo_mark.webp" alt="" loading="lazy">
+    <h2 class="h2">À toi<br><span class="shimmer">de jouer</span></h2>
+    <p class="lead" style="margin:0 auto 30px">La bêta est ouverte. Rejoins-la sur iPhone.</p>
+    <a class="store" href="https://testflight.apple.com/join/R4vCScw7">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+      <span><small>Bêta gratuite · TestFlight</small>Télécharger la bêta</span>
+    </a>
+    <div class="seats" style="justify-content:center" aria-live="polite"><div class="bar"><i style="width:2.7%"></i></div><span><b class="n">27</b> / 1 000 places dans la bêta</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo_full.webp" alt="GOALION" loading="lazy">
+    <nav><a href="#assistance">Assistance</a><a href="confidentialite.html">Confidentialité</a><a href="mailto:contact@goalion.fr">contact@goalion.fr</a></nav>
+    <span>© 2026 David Attias · GOALION</span>
+  </div>
+</footer>
+
 </div>
 
-<div class="card" id="assistance">
-  <h2>Assistance</h2>
-  <p>Une question, un bug, un problème de compte ? Écris-nous, on répond sous quelques jours.</p>
-  <a class="btn" href="mailto:contact@goalion.fr">contact@goalion.fr</a>
-  <h2>Questions fréquentes</h2>
-  <p><strong>J'ai oublié mon mot de passe.</strong> Sur l'écran de connexion, touche « Mot de passe oublié ? » : tu reçois un lien par email.</p>
-  <p><strong>Comment supprimer mon compte ?</strong> Dans l'app : Profil → Réglages → Supprimer mon compte. Tout est effacé définitivement. Tu peux aussi nous écrire.</p>
-  <p><strong>Est-ce que je peux gagner de l'argent ?</strong> Non. Tout se joue avec des pièces et des gemmes virtuelles, sans aucune valeur réelle.</p>
-</div>
+<script>
+(() => {
+  const root = document.querySelector('.gl');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => root.querySelector(s);
+  const $$ = s => [...root.querySelectorAll(s)];
 
-</div></main>
-<footer><div class="wrap">© 2026 David Attias · GOALION · <a href="mailto:contact@goalion.fr">contact@goalion.fr</a> · <a href="confidentialite.html">Politique de confidentialité</a></div></footer>
-</body></html>
+  /* Nav opaque au scroll */
+  const nav = $('#gl-nav');
+  const onScroll = () => nav.classList.toggle('solid', scrollY > 30);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* Apparition des blocs à l'écran */
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: .2, rootMargin: '0px 0px -8% 0px' });
+  $$('[data-reveal]').forEach(el => io.observe(el));
+
+  /* Hero : les téléphones suivent la souris */
+  const stage = $('#gl-stage'), tilt = $('#gl-tilt');
+  if (!reduce && matchMedia('(pointer:fine)').matches) {
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      tilt.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 10}deg)`;
+    });
+    stage.addEventListener('pointerleave', () => tilt.style.transform = '');
+  }
+
+  /* Ligue : les rangs s'allument au fil du scroll */
+  const rail = $('#gl-rail'), ranks = $$('.rk'), ladder = $('#gl-ladder');
+  function ladderProgress() {
+    const r = ladder.getBoundingClientRect(), vh = innerHeight;
+    const p = reduce ? 1 : Math.max(0, Math.min(1, (vh * .85 - r.top) / (vh * .6)));
+    rail.style.width = (p * 100) + '%';
+    const lit = Math.round(p * (ranks.length - 1));
+    ranks.forEach((rk, i) => { rk.classList.toggle('on', i <= lit); rk.classList.toggle('cur', i === lit); });
+  }
+  addEventListener('scroll', ladderProgress, { passive: true }); addEventListener('resize', ladderProgress); ladderProgress();
+
+  /* Places de la bêta : lu dans Supabase, +1 au premier clic de ce navigateur.
+     Ne bloque jamais le lien : si Supabase ne répond pas, on garde l'affichage. */
+  (() => {
+    const API = 'https://dryftpvctgnojdewnbna.supabase.co/rest/v1/rpc/';
+    const KEY = 'sb_publishable_W9dh3-go9cw1ZOIlxqH32A_BXE72Lju';
+    const MAX = 1000, FLAG = 'goalion.beta.joined';
+    const boxes = [...document.querySelectorAll('.gl .seats')];
+    const show = (n, bump) => boxes.forEach(b => {
+      b.querySelector('.n').textContent = n.toLocaleString('fr-FR');
+      b.querySelector('.bar i').style.width = Math.min(100, n / MAX * 100) + '%';
+      if (bump) { b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
+    });
+    const call = (fn, opts = {}) => fetch(API + fn, { method: 'POST', keepalive: true,
+      headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }, body: '{}', ...opts })
+      .then(r => r.ok ? r.json() : null).catch(() => null);
+    let current = 27;
+    call('beta_count').then(n => { if (typeof n === 'number') { current = n; show(n); } });
+    document.querySelectorAll('.gl a[href*="testflight.apple.com"]').forEach(a => a.addEventListener('click', () => {
+      let joined = false;
+      try { joined = localStorage.getItem(FLAG) === '1'; localStorage.setItem(FLAG, '1'); } catch (e) {}
+      if (joined) return;
+      show(current = Math.min(MAX, current + 1), true);
+      call('beta_join').then(n => { if (typeof n === 'number') show(current = n); });
+    }));
+  })();
+})();
+</script>
+</body>
+</html>
