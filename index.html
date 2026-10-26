@@ -53,13 +53,17 @@ body{margin:0;background:#0A0A0C}
 .gl .lead strong{color:var(--text)}
 
 /* ---------- Bouton App Store ---------- */
-.gl .store{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--accentText);text-decoration:none;
-  padding:13px 22px 13px 16px;border-radius:16px;font:800 15px/1.1 var(--body);box-shadow:0 10px 40px -10px rgba(198,242,78,.6);
+.gl .store{display:inline-flex;align-items:center;gap:14px;background:var(--accent);color:var(--accentText);text-decoration:none;
+  padding:8px 22px 8px 8px;border-radius:999px;font:800 17px/1.15 var(--body);letter-spacing:-.01em;
+  box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 12px 32px -14px rgba(198,242,78,.55);
   transition:transform .25s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s;position:relative;overflow:hidden}
-.gl .store:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 50px -10px rgba(198,242,78,.8)}
-.gl .store small{display:block;font:700 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:3px}
-.gl .store svg{width:26px;height:26px;flex:none}
-.gl .store::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:gl-shine 3.6s ease-in-out infinite 1.2s}
+.gl .store:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.3) inset,0 18px 40px -14px rgba(198,242,78,.75)}
+.gl .store .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#0b0c0e;color:#fff;flex:none}
+.gl .store .ic svg{width:20px;height:20px;margin-top:-2px}
+.gl .store small{display:block;font:600 12px/1 var(--body);letter-spacing:0;opacity:.65;margin-top:4px}
+.gl .store .arr{width:18px;height:18px;flex:none;margin-left:4px;transition:transform .25s}
+.gl .store:hover .arr{transform:translateX(3px)}
+.gl .store::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-120%);animation:gl-shine 6s ease-in-out infinite 1.5s}
 @keyframes gl-shine{0%,60%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
 
 /* ---------- Nav ---------- */
@@ -292,17 +296,17 @@ body{margin:0;background:#0A0A0C}
         <p class="lead">Les vrais matchs, tes cartes, ton onze. <strong>Jusqu'où iras-tu ?</strong></p>
         <div class="ctas">
           <a class="store" href="https://testflight.apple.com/join/R4vCScw7">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
-            <span><small>Bêta gratuite · TestFlight</small>Télécharger la bêta</span>
+            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.84-3.49.84-.72 0-1.83-.82-3.01-.8-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.72c1.25-.02 2.04-1.13 2.8-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.47-3.71zM14.08 5.85c.64-.78 1.07-1.85.95-2.93-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.02.08 2.07-.52 2.71-1.28z"/></svg></span>
+            <span>Télécharger la bêta<small>Gratuit sur TestFlight</small></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
         <div class="seats" aria-live="polite"><div class="bar"><i style="width:2.7%"></i></div><span><b class="n">27</b> / 1 000 places dans la bêta</span></div>
       </div>
       <div class="stage" id="gl-stage">
         <div class="tilt" id="gl-tilt">
-          <div class="phone p2"><img src="shot_team.webp" alt="Ton onze sur le terrain" width="600" height="1304"></div>
+          <div class="phone p2"><img src="shot_boutique.webp" alt="La Boutique et ses packs" width="600" height="1304"></div>
           <div class="phone p3"><img src="shot_pronos.webp" alt="Les matchs à pronostiquer" width="600" height="1304"></div>
-          <div class="phone p1"><img src="shot_match.webp" alt="Un match de ligue en direct" width="600" height="1304"></div>
+          <div class="phone p1"><img src="shot_team.webp" alt="Ton onze sur le terrain" width="600" height="1304"></div>
         </div>
         <img class="floaty c1" src="coin_golz.webp" alt="">
         <img class="floaty g1" src="gem_golz.webp" alt="">
@@ -371,7 +375,7 @@ body{margin:0;background:#0A0A0C}
     </div>
     <div class="shots" data-reveal="zoom">
       <div class="glow" style="background:radial-gradient(circle,#2f8a3a,transparent 65%)"></div>
-      <div class="phone floatme"><img src="shot_collection.webp" alt="Ton onze et ta collection de cartes" loading="lazy" width="600" height="1304"></div>
+      <div class="phone floatme"><img src="shot_team.webp" alt="Ton onze et ta collection de cartes" loading="lazy" width="600" height="1304"></div>
     </div>
   </div>
 </section>
@@ -409,10 +413,9 @@ body{margin:0;background:#0A0A0C}
       <h2 class="h2">Vis chaque<br><em>match.</em></h2>
       <p class="lead">Ton équipe joue sous tes yeux, but après but.</p>
     </div>
-    <div class="shots duo" data-reveal="zoom">
+    <div class="shots" data-reveal="zoom">
       <div class="glow" style="background:radial-gradient(circle,#E8B341,transparent 65%)"></div>
-      <div class="phone"><img src="shot_match.webp" alt="Un match en direct" loading="lazy" width="600" height="1304"></div>
-      <div class="phone"><img src="shot_feuille.webp" alt="La feuille de match" loading="lazy" width="600" height="1304"></div>
+      <div class="phone floatme"><img src="shot_feuille.webp" alt="La feuille de match" loading="lazy" width="600" height="1304"></div>
     </div>
   </div>
 </section>
@@ -463,8 +466,8 @@ body{margin:0;background:#0A0A0C}
     <h2 class="h2">À toi<br><span class="shimmer">de jouer</span></h2>
     <p class="lead" style="margin:0 auto 30px">La bêta est ouverte. Rejoins-la sur iPhone.</p>
     <a class="store" href="https://testflight.apple.com/join/R4vCScw7">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
-      <span><small>Bêta gratuite · TestFlight</small>Télécharger la bêta</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.97-3.46-1.07-1.57-2.74-1.78-3.33-1.8-1.42-.14-2.77.84-3.49.84-.72 0-1.83-.82-3.01-.8-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.72c1.25-.02 2.04-1.13 2.8-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.47-3.71zM14.08 5.85c.64-.78 1.07-1.85.95-2.93-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.02.08 2.07-.52 2.71-1.28z"/></svg></span>
+      <span>Télécharger la bêta<small>Gratuit sur TestFlight</small></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
     <div class="seats" style="justify-content:center" aria-live="polite"><div class="bar"><i style="width:2.7%"></i></div><span><b class="n">27</b> / 1 000 places dans la bêta</span></div>
   </div>
