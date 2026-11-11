@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GOALION — Prédis. Collectionne. Domine.</title>
-<meta name="description" content="GOALION, le jeu de foot sur iPhone : pronostique les vrais matchs, ouvre des packs, aligne ton onze et grimpe jusqu'à Légende. Monnaie virtuelle uniquement.">
+<meta name="description" content="GOALION, le jeu de foot sur iPhone : pronostique les vrais matchs, ouvre des packs, aligne ton onze, joue tes matchs et grimpe jusqu'à Légende.">
 <meta name="theme-color" content="#0A0A0C">
 <meta property="og:title" content="GOALION — Prédis. Collectionne. Domine.">
 <meta property="og:description" content="Les vrais matchs, tes cartes, ton onze. Jusqu'où iras-tu ?">
@@ -204,11 +204,6 @@ body{margin:0;background:#0A0A0C}
   .gl .rk.cur{transform:scale(1.12)}
 }
 
-/* ---------- Argent réel ---------- */
-.gl .nomoney{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;text-align:center;padding:22px 26px;border-radius:22px;background:var(--surface);border:1px solid var(--line2);color:var(--text2);font-size:15px}
-.gl .nomoney img{width:34px;height:34px}
-.gl .nomoney b{color:var(--text)}
-
 /* ---------- Assistance ---------- */
 .gl .help{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,70px);align-items:start}
 .gl .help>*{min-width:0}
@@ -222,6 +217,7 @@ body{margin:0;background:#0A0A0C}
 .gl .mail{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:14px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line2);color:var(--text);text-decoration:none;font-weight:800;transition:border-color .2s,transform .2s}
 .gl .mail:hover{border-color:var(--accent);transform:translateY(-2px)}
 .gl .mail span{color:var(--accent)}
+.gl .mail svg{flex:none;color:var(--accent)}
 
 /* ---------- Final + footer ---------- */
 .gl .final{text-align:center;padding:clamp(90px,14vw,170px) 0;position:relative;overflow:hidden;isolation:isolate}
@@ -318,10 +314,10 @@ body{margin:0;background:#0A0A0C}
   <div class="scroll-hint" aria-hidden="true"></div>
 </section>
 
-<div class="marquee" aria-label="Ligue 1, Premier League, Liga, Serie A, Bundesliga, Ligue des champions">
+<div class="marquee" aria-label="Ligue 1, Premier League, Liga, Serie A, Bundesliga, Ligue des champions, Ligue des Nations, Coupe du Monde, Coupe européenne">
   <div class="track" aria-hidden="true">
-    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span>
-    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span>
+    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span><span>Ligue des Nations</span><span>Coupe du Monde</span><span>Coupe européenne</span>
+    <span>Ligue 1</span><span>Premier League</span><span>Liga</span><span>Serie A</span><span>Bundesliga</span><span>Ligue des champions</span><span>Ligue des Nations</span><span>Coupe du Monde</span><span>Coupe européenne</span>
   </div>
 </div>
 
@@ -333,10 +329,9 @@ body{margin:0;background:#0A0A0C}
       <h2 class="h2">Les vrais matchs.<br><em>Les vraies cotes.</em></h2>
       <p class="lead">Mise sur les matchs du week-end. Le bon prono rapporte gros.</p>
     </div>
-    <div class="shots duo" data-reveal="zoom">
+    <div class="shots" data-reveal="zoom">
       <div class="glow" style="background:radial-gradient(circle,#C6F24E,transparent 65%)"></div>
-      <div class="phone"><img src="shot_pronos.webp" alt="Un match à parier avec ses cotes" loading="lazy" width="600" height="1304"></div>
-      <div class="phone"><img src="shot_paris.webp" alt="Tes paris en cours" loading="lazy" width="600" height="1304"></div>
+      <div class="phone floatme"><img src="shot_pronos.webp" alt="Les matchs à pronostiquer et leurs cotes" loading="lazy" width="600" height="1304"></div>
     </div>
   </div>
 </section>
@@ -388,6 +383,10 @@ body{margin:0;background:#0A0A0C}
       <h2 class="h2">D'Espoir<br>à <em>Légende</em></h2>
       <p class="lead">Neuf rangs. Jusqu'où iras-tu ?</p>
     </div>
+    <div class="shots" data-reveal="zoom" style="margin-top:30px">
+      <div class="glow" style="background:radial-gradient(circle,#FF5A5A,transparent 65%)"></div>
+      <div class="phone floatme"><img src="shot_jouer.webp" alt="L'onglet Jouer : ton rang, tes paliers et le bouton pour lancer un match" loading="lazy" width="600" height="1304"></div>
+    </div>
     <div class="ladder" id="gl-ladder">
       <div class="rail"><i id="gl-rail"></i></div>
       <div class="ranks">
@@ -410,22 +409,37 @@ body{margin:0;background:#0A0A0C}
   <div class="wrap split">
     <div class="txt" data-reveal="left">
       <span class="eyebrow">05 · Le match</span>
-      <h2 class="h2">Vis chaque<br><em>match.</em></h2>
-      <p class="lead">Ton équipe joue sous tes yeux, but après but.</p>
+      <h2 class="h2">Devine<br><em>son coup.</em></h2>
+      <p class="lead">Toi et ton adversaire choisissez en même temps. <strong>Lis son jeu, marque.</strong></p>
     </div>
     <div class="shots duo" data-reveal="zoom">
       <div class="glow" style="background:radial-gradient(circle,#E8B341,transparent 65%)"></div>
-      <div class="phone"><img src="shot_match_live.webp" alt="Un match en direct dans son stade" loading="lazy" width="600" height="1304"></div>
-      <div class="phone"><img src="shot_coup_envoi.webp" alt="Le coup d'envoi" loading="lazy" width="600" height="1304"></div>
+      <div class="phone"><img src="shot_tactique.webp" alt="Le choix de la tactique avant le coup d'envoi" loading="lazy" width="600" height="1304"></div>
+      <div class="phone"><img src="shot_temps_fort.webp" alt="Un temps fort : jeu sûr, but, golazo ou geste" loading="lazy" width="600" height="1304"></div>
     </div>
   </div>
 </section>
 
-<!-- 06 CHAQUE JOUR -->
-<section class="block" id="chaque-jour" style="padding-top:0">
+<!-- 06 SAISONS -->
+<section class="block" id="saisons">
   <div class="wrap split rev">
     <div class="txt" data-reveal="right">
-      <span class="eyebrow">06 · Chaque jour</span>
+      <span class="eyebrow">06 · Saisons</span>
+      <h2 class="h2">Une saison<br><em>par mois.</em></h2>
+      <p class="lead">Un nouveau décor, <strong>de nouvelles récompenses.</strong></p>
+    </div>
+    <div class="shots" data-reveal="zoom">
+      <div class="glow" style="background:radial-gradient(circle,#00E5F0,transparent 65%)"></div>
+      <div class="phone floatme"><img src="shot_saison.webp" alt="L'onglet Saison : la saison Néon City" loading="lazy" width="600" height="1304"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 CHAQUE JOUR -->
+<section class="block" id="chaque-jour" style="padding-top:0">
+  <div class="wrap split">
+    <div class="txt" data-reveal="left">
+      <span class="eyebrow">07 · Chaque jour</span>
       <h2 class="h2">Chaque jour<br><em>compte.</em></h2>
       <p class="lead">Un cadeau qui t'attend, une série à garder en vie.</p>
     </div>
@@ -436,20 +450,13 @@ body{margin:0;background:#0A0A0C}
   </div>
 </section>
 
-<!-- ARGENT RÉEL -->
-<section class="block" style="padding:0 0 20px">
-  <div class="wrap">
-    <p class="nomoney" data-reveal><img src="coin_golz.webp" alt=""><span><b>Zéro argent réel.</b> Tout se joue avec une monnaie virtuelle.</span></p>
-  </div>
-</section>
-
 <!-- ASSISTANCE -->
 <section class="block" id="assistance">
   <div class="wrap help">
     <div data-reveal="left">
       <span class="eyebrow">Assistance</span>
       <h2 class="h2">Une question&nbsp;?</h2>
-      <a class="mail" href="mailto:contact@goalion.fr">✉ <span>contact@goalion.fr</span></a>
+      <a class="mail" href="mailto:contact@goalion.fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 7 9 6 9-6"/></svg><span>contact@goalion.fr</span></a>
     </div>
     <div class="faq" data-reveal="right">
       <details><summary>J'ai oublié mon mot de passe.</summary><p>Sur l'écran de connexion, touche « Mot de passe oublié ? » et suis le lien reçu par email.</p></details>
@@ -477,7 +484,7 @@ body{margin:0;background:#0A0A0C}
 <footer>
   <div class="wrap">
     <img src="logo_full.webp" alt="GOALION" loading="lazy">
-    <nav><a href="#assistance">Assistance</a><a href="confidentialite.html">Confidentialité</a><a href="mailto:contact@goalion.fr">contact@goalion.fr</a></nav>
+    <nav><a href="#assistance">Assistance</a><a href="cgu.html">Conditions</a><a href="confidentialite.html">Confidentialité</a><a href="mailto:contact@goalion.fr">contact@goalion.fr</a></nav>
     <span>© 2026 Samuel Attias · GOALION · Published by <a href="https://pixelperfectwidgets.com" target="_blank" rel="noopener">PPW</a></span>
   </div>
 </footer>
